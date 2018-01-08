@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/AgesilausDrako/fullstackreact#readme",
   "dependencies": {
+    "ejs": "^2.5.7",
     "express": "^4.16.2",
     "mongodb": "^3.0.1",
     "nodemon": "^1.14.9",
