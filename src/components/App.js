@@ -6,13 +6,13 @@ import ContestPreview from './ContestPreview';
 class App extends Component {
     state = { 
         pageHeader: "Naming Contests",
-        contests: []
+        contests: this.props.initialContests
     };
     componentDidMount() {
         axios.get('/api/contests')
-            .then(resp => {
+            .then(res => {
                 this.setState({
-                    contests: resp.data.contests
+                    contests: res.data.contests
                 });
             })
             .catch(console.error);
