@@ -22354,6 +22354,10 @@
 	    return window.history.pushState(obj, '', url);
 	};
 	
+	var onPopState = function onPopState(handler) {
+	    window.onpopstate = handler;
+	};
+	
 	var App = function (_Component) {
 	    _inherits(App, _Component);
 	
@@ -22389,7 +22393,15 @@
 	
 	    _createClass(App, [{
 	        key: 'componentDidMount',
-	        value: function componentDidMount() {}
+	        value: function componentDidMount() {
+	            var _this2 = this;
+	
+	            onPopState(function (event) {
+	                _this2.setState({
+	                    currentContestId: (event.state || {}).currentContestId
+	                });
+	            });
+	        }
 	    }, {
 	        key: 'componentWillUnmount',
 	        value: function componentWillUnmount() {}
