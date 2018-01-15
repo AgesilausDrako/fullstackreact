@@ -4,7 +4,13 @@ class Contest extends Component {
     render() {
         return (
             <div className="Contest">
-                {this.props.description}
+                <div className="contest-description">
+                    {this.props.description}
+                </div>
+                <div className="home-link link"
+                    onClick={this.props.contestListClick}>
+                    Contest List
+                </div>
             </div>
         );
     }
