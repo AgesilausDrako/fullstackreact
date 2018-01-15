@@ -22404,7 +22404,9 @@
 	        }
 	    }, {
 	        key: 'componentWillUnmount',
-	        value: function componentWillUnmount() {}
+	        value: function componentWillUnmount() {
+	            onPopState(null);
+	        }
 	    }, {
 	        key: 'currentContest',
 	        value: function currentContest() {

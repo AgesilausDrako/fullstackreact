@@ -22,7 +22,7 @@ class App extends Component {
         });
     }
     componentWillUnmount() {
-
+        onPopState(null);
     }
     fetchContest = (contestId) => {
         pushState(
