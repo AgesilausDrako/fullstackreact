@@ -22376,8 +22376,8 @@
 	            pushState({ currentContestId: contestId }, '/contest/' + contestId);
 	            api.fetchContest(contestId).then(function (contest) {
 	                _this.setState({
-	                    currentContestId: contestId,
-	                    contests: _extends({}, _this.state.contests, _defineProperty({}, contest.id, contest))
+	                    currentContestId: contest._id,
+	                    contests: _extends({}, _this.state.contests, _defineProperty({}, contest._id, contest))
 	                });
 	            });
 	        }, _this.fetchContestList = function () {
@@ -22404,6 +22404,13 @@
 	                };
 	            }
 	            return _this.state.names[nameId];
+	        }, _this.addName = function (newName, contestId) {
+	            api.addName(newName, contestId).then(function (res) {
+	                return _this.setState({
+	                    contests: _extends({}, _this.state.contests, _defineProperty({}, res.updatedContest._id, res.updatedContest)),
+	                    names: _extends({}, _this.state.names, _defineProperty({}, res.newName._id, res.newName))
+	                });
+	            }).catch(console.error);
 	        }, _temp), _possibleConstructorReturn(_this, _ret);
 	    }
 	
@@ -22443,7 +22450,8 @@
 	                return _react2.default.createElement(_Contest2.default, _extends({
 	                    contestListClick: this.fetchContestList,
 	                    fetchNames: this.fetchNames,
-	                    lookupName: this.lookupName
+	                    lookupName: this.lookupName,
+	                    addName: this.addName
 	                }, this.currentContest()));
 	            }
 	            return _react2.default.createElement(_ContestList2.default, {
@@ -22584,7 +22592,7 @@
 	        }
 	
 	        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = ContestPreview.__proto__ || Object.getPrototypeOf(ContestPreview)).call.apply(_ref, [this].concat(args))), _this), _this.handleClick = function () {
-	            _this.props.onClick(_this.props.id);
+	            _this.props.onClick(_this.props._id);
 	        }, _temp), _possibleConstructorReturn(_this, _ret);
 	    }
 	
@@ -22789,7 +22797,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	             value: true
 	});
-	exports.fetchNames = exports.fetchContestList = exports.fetchContest = undefined;
+	exports.addName = exports.fetchNames = exports.fetchContestList = exports.fetchContest = undefined;
 	
 	var _axios = __webpack_require__(/*! axios */ 190);
 	
@@ -22812,6 +22820,12 @@
 	var fetchNames = exports.fetchNames = function fetchNames(nameIds) {
 	             return _axios2.default.get('/api/names/' + nameIds.join(',')).then(function (res) {
 	                          return res.data.names;
+	             });
+	};
+	
+	var addName = exports.addName = function addName(newName, contestId) {
+	             return _axios2.default.post('/api/names', { newName: newName, contestId: contestId }).then(function (res) {
+	                          return res.data;
 	             });
 	};
 
